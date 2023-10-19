@@ -11,7 +11,7 @@ The `LabRabota1` function demonstrates the usage of two random number generators
 The `LabRabota2` function focuses on probability distributions, specifically the Bernoulli and binomial distributions. It generates random numbers following these distributions and performs the following tasks:
 
 - Plots the empirical cumulative distribution function (ECDF) for the Bernoulli distribution.
-- Calculates the unbiased mean and variance for both the Bernoulli and binomial distributions.
+- Calculates the unbiased mean and variance for both the Bernoulli, Binomial, Geometric and Poisson distributions.
 - Compares the calculated values with the true mean and variance of the distributions.
 
 ## Usage

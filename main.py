@@ -1,9 +1,6 @@
-import numpy as np
 from matplotlib import pyplot as plt
-
 from generators import mkm_generator, macLarenMarsaglia
-from distributions import bernoulli, binomial, unbiased_mean, unbiased_variance, true_mean_bernoulli, \
-    true_variance_bernoulli, true_mean_binomial, true_variance_binomial
+from distributions import *
 
 
 def LabRabota1():
@@ -45,9 +42,13 @@ def LabRabota2():
     p_bernoulli = 0.2
     m_binomial = 6
     p_binomial = 0.75
+    p_geometric = 0.9
+    lambda_poisson = 0.7
 
     bernoulli_numbers = bernoulli(n, p_bernoulli)
     binomial_numbers = binomial(n, m_binomial, p_binomial)
+    geometric_numbers = generate_geometric(n, p_geometric)
+    poisson_numbers = generate_poisson(n, lambda_poisson)
 
     # Доп задание: график эмпирической функции распределения (ECDF)
     def ecdf_bernulli(data):
@@ -73,10 +74,20 @@ def LabRabota2():
     binomial_mean = unbiased_mean(binomial_numbers)
     binomial_variance = unbiased_variance(binomial_numbers)
 
+    geometric_mean = calculate_unbiased_mean(geometric_numbers)
+    geometric_variance = calculate_unbiased_variance(geometric_numbers)
+    poisson_mean = calculate_unbiased_mean(poisson_numbers)
+    poisson_variance = calculate_unbiased_variance(poisson_numbers)
+
     true_mean_bernoulli_var = true_mean_bernoulli(p_bernoulli)
     true_variance_bernoulli_var = true_variance_bernoulli(p_bernoulli)
     true_mean_binomial_var = true_mean_binomial(m_binomial, p_binomial)
     true_variance_binomial_var = true_variance_binomial(m_binomial, p_binomial)
+
+    true_mean_geometric_var = calculate_true_mean_geometric(p_geometric)
+    true_variance_geometric_var = calculate_true_variance_geometric(p_geometric)
+    true_mean_poisson_var = calculate_true_mean_poisson(lambda_poisson)
+    true_variance_poisson_var = calculate_true_variance_poisson(lambda_poisson)
 
     print("\nBernoulli:")
     print("Unbiased mean:", bernoulli_mean)
@@ -89,6 +100,18 @@ def LabRabota2():
     print("True mean:", true_mean_binomial_var)
     print("Unbiased variance:", binomial_variance)
     print("True variance:", true_variance_binomial_var)
+
+    print("\nGeometric:")
+    print("Unbiased mean:", geometric_mean)
+    print("True mean:", true_mean_geometric_var)
+    print("Unbiased variance:", geometric_variance)
+    print("True variance:", true_variance_geometric_var)
+
+    print("\nPoisson:")
+    print("Unbiased mean:", poisson_mean)
+    print("True mean:", true_mean_poisson_var)
+    print("Unbiased variance:", poisson_variance)
+    print("True variance:", true_variance_poisson_var)
 
 
 if __name__ == "__main__":
