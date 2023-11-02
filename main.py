@@ -1,9 +1,18 @@
 from matplotlib import pyplot as plt
 from generators import mkm_generator, macLarenMarsaglia
 from distributions import *
+from scipy.stats import lognorm, logistic, laplace, expon
 
 
-def LabRabota1():
+def print_distribution_stats(distribution_name, unbiased_mean, true_mean, unbiased_variance, true_variance):
+    print(f"\n{distribution_name} Distribution:")
+    print("Unbiased mean:", unbiased_mean)
+    print("True mean:", true_mean)
+    print("Unbiased variance:", unbiased_variance)
+    print("True variance:", true_variance)
+
+
+def LabWork1():
     n = 1000
     a01 = 24149775
     c1 = 19581355
@@ -37,7 +46,7 @@ def LabRabota1():
     print("MacLaren-Marsaglia - 1000th element:", macLaren_Marsaglia[999])
 
 
-def LabRabota2():
+def LabWork2():
     n = 1000
     p_bernoulli = 0.2
     m_binomial = 6
@@ -79,41 +88,107 @@ def LabRabota2():
     poisson_mean = calculate_unbiased_mean(poisson_numbers)
     poisson_variance = calculate_unbiased_variance(poisson_numbers)
 
-    true_mean_bernoulli_var = true_mean_bernoulli(p_bernoulli)
-    true_variance_bernoulli_var = true_variance_bernoulli(p_bernoulli)
-    true_mean_binomial_var = true_mean_binomial(m_binomial, p_binomial)
-    true_variance_binomial_var = true_variance_binomial(m_binomial, p_binomial)
+    true_mean_bernoulli1 = true_mean_bernoulli(p_bernoulli)
+    true_variance_bernoulli1 = true_variance_bernoulli(p_bernoulli)
+    true_mean_binomial1 = true_mean_binomial(m_binomial, p_binomial)
+    true_variance_binomial1 = true_variance_binomial(m_binomial, p_binomial)
 
-    true_mean_geometric_var = calculate_true_mean_geometric(p_geometric)
-    true_variance_geometric_var = calculate_true_variance_geometric(p_geometric)
-    true_mean_poisson_var = calculate_true_mean_poisson(lambda_poisson)
-    true_variance_poisson_var = calculate_true_variance_poisson(lambda_poisson)
+    true_mean_geometric = calculate_true_mean_geometric(p_geometric)
+    true_variance_geometric = calculate_true_variance_geometric(p_geometric)
+    true_mean_poisson = calculate_true_mean_poisson(lambda_poisson)
+    true_variance_poisson = calculate_true_variance_poisson(lambda_poisson)
 
-    print("\nBernoulli:")
-    print("Unbiased mean:", bernoulli_mean)
-    print("True mean:", true_mean_bernoulli_var)
-    print("Unbiased variance:", bernoulli_variance)
-    print("True variance:", true_variance_bernoulli_var)
+    print_distribution_stats("Bernoulli", bernoulli_mean, true_mean_bernoulli1, bernoulli_variance,
+                             true_variance_bernoulli1)
+    print_distribution_stats("Binomial", binomial_mean, true_mean_binomial1, binomial_variance, true_variance_binomial1)
+    print_distribution_stats("Geometric", geometric_mean, true_mean_geometric, geometric_variance,
+                             true_variance_geometric)
+    print_distribution_stats("Poisson", poisson_mean, true_mean_poisson, poisson_variance, true_variance_poisson)
 
-    print("\nBinomial:")
-    print("Unbiased mean:", binomial_mean)
-    print("True mean:", true_mean_binomial_var)
-    print("Unbiased variance:", binomial_variance)
-    print("True variance:", true_variance_binomial_var)
+def LabWork3():
+    n = 10000
+    N = 48  # Number of terms in the Central Limit Theorem approximation
 
-    print("\nGeometric:")
-    print("Unbiased mean:", geometric_mean)
-    print("True mean:", true_mean_geometric_var)
-    print("Unbiased variance:", geometric_variance)
-    print("True variance:", true_variance_geometric_var)
+    # Task 1
+    m_task1 = 0
+    s2_task1 = 16
+    means_task1, variances_task1 = simulate_normal(n, m_task1, s2_task1, N)
+    true_mean_task1 = m_task1
+    true_variance_task1 = s2_task1
+    unbiased_mean_task1 = calculate_unbiased_mean(means_task1)
+    unbiased_variance_task1 = calculate_unbiased_variance(means_task1)
+    print_distribution_stats("Normal", unbiased_mean_task1, true_mean_task1, unbiased_variance_task1,
+                             true_variance_task1)
 
-    print("\nPoisson:")
-    print("Unbiased mean:", poisson_mean)
-    print("True mean:", true_mean_poisson_var)
-    print("Unbiased variance:", poisson_variance)
-    print("True variance:", true_variance_poisson_var)
+    # Task 2
+    m_lognormal = 1
+    s2_lognormal = 1
+    a_logistic = 0
+    b_logistic = 1
+    a_laplace = 1
+    a_exponential = 1
+
+    lognormal_samples = simulate_lognormal(n, m_lognormal, s2_lognormal)
+    logistic_samples = simulate_logistic(n, a_logistic, b_logistic)
+    laplace_samples = simulate_laplace(n, a_laplace)
+    exponential_samples = simulate_exponential(n, a_exponential)
+
+    true_mean_lognormal = calculate_true_mean_lognormal(m_lognormal, s2_lognormal)
+    true_variance_lognormal = calculate_true_variance_lognormal(m_lognormal, s2_lognormal)
+    true_mean_logistic = calculate_true_mean_logistic(a_logistic, b_logistic)
+    true_variance_logistic = calculate_true_variance_logistic(a_logistic, b_logistic)
+    true_mean_laplace = calculate_true_mean_laplace(a_laplace)
+    true_variance_laplace = calculate_true_variance_laplace(a_laplace)
+    true_mean_exponential = calculate_true_mean_exponential(a_exponential)
+    true_variance_exponential = calculate_true_variance_exponential(a_exponential)
+
+    unbiased_mean_lognormal = calculate_unbiased_mean(lognormal_samples)
+    unbiased_variance_lognormal = calculate_unbiased_variance(lognormal_samples)
+    unbiased_mean_logistic = calculate_unbiased_mean(logistic_samples)
+    unbiased_variance_logistic = calculate_unbiased_variance(logistic_samples)
+    unbiased_mean_laplace = calculate_unbiased_mean(laplace_samples)
+    unbiased_variance_laplace = calculate_unbiased_variance(laplace_samples)
+    unbiased_mean_exponential = calculate_unbiased_mean(exponential_samples)
+    unbiased_variance_exponential = calculate_unbiased_variance(exponential_samples)
+
+    print_distribution_stats("Lognormal", unbiased_mean_lognormal, true_mean_lognormal, unbiased_variance_lognormal,
+                             true_variance_lognormal)
+    print_distribution_stats("Logistic", unbiased_mean_logistic, true_mean_logistic, unbiased_variance_logistic,
+                             true_variance_logistic)
+    print_distribution_stats("Laplace", unbiased_mean_laplace, true_mean_laplace, unbiased_variance_laplace,
+                             true_variance_laplace)
+    print_distribution_stats("Exponential", unbiased_mean_exponential, true_mean_exponential,
+                             unbiased_variance_exponential, true_variance_exponential)
+
+    # Task 3
+    fig, axs = plt.subplots(2, 2, figsize=(12, 8))
+
+    axs[0, 0].hist(lognormal_samples, bins=50, density=True, alpha=0.7)
+    axs[0, 0].set_title('Lognormal Distribution')
+    x_lognormal = np.linspace(0, 10, 1000)
+    axs[0, 0].plot(x_lognormal, lognorm.pdf(x_lognormal, s=np.sqrt(s2_lognormal), scale=np.exp(m_lognormal)), 'r-',
+                   lw=2)
+
+    axs[0, 1].hist(logistic_samples, bins=50, density=True, alpha=0.7)
+    axs[0, 1].set_title('Logistic Distribution')
+    x_logistic = np.linspace(-10, 10, 1000)
+    axs[0, 1].plot(x_logistic, logistic.pdf(x_logistic, loc=a_logistic, scale=b_logistic), 'r-', lw=2)
+
+    axs[1, 0].hist(laplace_samples, bins=50, density=True, alpha=0.7)
+    axs[1, 0].set_title('Laplace Distribution')
+    x_laplace = np.linspace(-10, 10, 1000)
+    axs[1, 0].plot(x_laplace, laplace.pdf(x_laplace, loc=0, scale=a_laplace), 'r-', lw=2)
+
+    axs[1, 1].hist(exponential_samples, bins=50, density=True, alpha=0.7)
+    axs[1, 1].set_title('Exponential Distribution')
+    x_exponential = np.linspace(0, 10, 1000)
+    axs[1, 1].plot(x_exponential, expon.pdf(x_exponential, scale=1 / a_exponential), 'r-', lw=2)
+
+    plt.tight_layout()
+    plt.show()
 
 
 if __name__ == "__main__":
-    LabRabota1()
-    LabRabota2()
+    # LabWork1()
+    LabWork2()
+    # LabWork3()

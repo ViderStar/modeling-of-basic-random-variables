@@ -1,3 +1,5 @@
+# LabWork1
+
 def mkm_generator(seed, multiplier, modulo, n):
     max1 = max(multiplier, modulo - multiplier)
     value = seed
@@ -22,4 +24,3 @@ def macLarenMarsaglia(MKM1, MKM2, k, n):
         if i + k < n:
             V[s] = MKM1[i + k]
     return mcl
-

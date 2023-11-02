@@ -1,6 +1,7 @@
 import numpy as np
 
 
+# LabWork2
 def generate_geometric(n, p):
     return np.random.geometric(p, size=n)
 
@@ -84,3 +85,71 @@ def calculate_true_mean_poisson(lambd):
 
 def calculate_true_variance_poisson(lambd):
     return lambd
+
+
+# LabWork3
+def simulate_normal(n, m, s2, N):
+    samples = np.random.normal(m, np.sqrt(s2), size=(n, N))
+    means = np.mean(samples, axis=1)
+    variances = np.var(samples, axis=1, ddof=1)
+    return means, variances
+
+
+def simulate_lognormal(n, m, s2):
+    samples = np.random.lognormal(m, np.sqrt(s2), size=n)
+    return samples
+
+
+def simulate_logistic(n, a, b):
+    samples = np.random.logistic(a, b, size=n)
+    return samples
+
+
+def simulate_laplace(n, a):
+    samples = np.random.laplace(0, a, size=n)
+    return samples
+
+
+def simulate_exponential(n, a):
+    samples = np.random.exponential(1 / a, size=n)
+    return samples
+
+
+def calculate_unbiased_mean(samples):
+    return np.mean(samples)
+
+
+def calculate_unbiased_variance(samples):
+    return np.var(samples, ddof=1)
+
+
+def calculate_true_mean_lognormal(m, s2):
+    return np.exp(m + (s2 / 2))
+
+
+def calculate_true_variance_lognormal(m, s2):
+    return (np.exp(s2) - 1) * np.exp(2 * m + s2)
+
+
+def calculate_true_mean_logistic(a, b):
+    return a
+
+
+def calculate_true_variance_logistic(a, b):
+    return (np.pi ** 2) * (b ** 2) / 3
+
+
+def calculate_true_mean_laplace(a):
+    return 0
+
+
+def calculate_true_variance_laplace(a):
+    return 2 * (a ** 2)
+
+
+def calculate_true_mean_exponential(a):
+    return 1 / a
+
+
+def calculate_true_variance_exponential(a):
+    return 1 / (a ** 2)
