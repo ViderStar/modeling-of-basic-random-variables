@@ -1,6 +1,14 @@
 import numpy as np
 
 
+def print_distribution_stats(distribution_name, unbiased_mean, true_mean, unbiased_variance, true_variance):
+    print(f"\n{distribution_name} Distribution:")
+    print("Unbiased mean:", unbiased_mean)
+    print("True mean:", true_mean)
+    print("Unbiased variance:", unbiased_variance)
+    print("True variance:", true_variance)
+
+
 # LabWork2
 def generate_geometric(n, p):
     return np.random.geometric(p, size=n)
