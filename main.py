@@ -1,19 +1,16 @@
-from matplotlib import pyplot as plt
-from generators import mkm_generator, macLarenMarsaglia
-from distributions import *
-from scipy.stats import lognorm, logistic, laplace, expon
-
-
-
-
-
-
-
-
-
-
+from labwork1 import LabWork1
+from labwork2 import LabWork2
+from labwork3 import LabWork3
+from labwork4 import LabWork4
 
 if __name__ == "__main__":
-    # LabWork1()
-    LabWork2()
-    # LabWork3()
+    print(f"Please, input numer of labwork:")
+    lab_num = input()
+    if lab_num == "1":
+        LabWork1()
+    elif lab_num == "2":
+        LabWork2()
+    elif lab_num == "3":
+        LabWork3()
+    elif lab_num == "4":
+        LabWork4()
